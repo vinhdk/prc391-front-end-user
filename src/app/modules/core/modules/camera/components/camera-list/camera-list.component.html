@@ -1,0 +1,22 @@
+<div class="row" style="max-height: 63vh; overflow: auto;">
+    <div class="col-4 mb-5" *ngFor="let row of pagingRows">
+        <mdb-card>
+            <div class="text-center">
+                <img [src]="row.Image" [alt]="row.Name" width="300" height="300" />
+            </div>
+            <mdb-card-body>
+                <mdb-card-title class="text-center">
+                    <h5 style="height: 100px;">{{row.Name}}</h5>
+                </mdb-card-title>
+                <mdb-card-text class="text-center">
+                    <span style="font-size: 1rem;">{{row.Price | number: '.0'}} đô</span>
+                </mdb-card-text>
+                <div class="card-footer text-muted text-center mt-4">
+                    <button mdbBtn color="primary" outline="true" rounded="true" mdbWavesEffect (click)="addToCard(row)">Thêm vào giỏ hàng</button>
+                </div>
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>
+<p-paginator *ngIf="filterRows.length === 0" id="tmp"></p-paginator>
+<p-paginator *ngIf="filterRows.length > 0" [rows]="30" [totalRecords]="filterRows.length" (onPageChange)="useChangePage($event)"></p-paginator>

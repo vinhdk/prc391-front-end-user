@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-6 offset-3">
+        <form (ngSubmit)="update()" [formGroup]="form" aria-labelledby="title">
+
+            <div class="form-control-group">
+                <label class="label" for="input-username">Tên tài khoản:</label>
+                <input readonly nbInput fullWidth name="username" placeholder="Nhập tên tài khoản" id="input-username" fieldSize="large" [value]="form.get('Username').value">
+            </div>
+
+            <div class="form-control-group">
+                <label class="label" for="input-fullname">Họ và tên:</label>
+                <input [formControl]="form.get('Fullname')" nbInput fullWidth name="fullname" id="input-fullname" placeholder="Nhập họ và tên" fieldSize="large" autofocus [status]="form.get('Fullname').dirty ? (form.get('Fullname').invalid  ? 'danger' : 'success') : ''"
+                    [attr.aria-invalid]="form.get('Fullname').invalid && form.get('Fullname').touched ? true : null">
+                <ng-container *ngIf="form.get('Fullname').invalid && form.get('Fullname').touched">
+                    <p class="caption status-danger" *ngIf="form.get('Fullname').invalid && (form.get('Fullname').dirty || form.get('Fullname').touched)">
+                        Vui lòng nhập họ và tên và độ dài ngắn nhất là 8 ký tự
+                    </p>
+                </ng-container>
+            </div>
+
+            <div class="form-control-group">
+                <label class="label" for="input-email">Thư điện tử:</label>
+                <input [formControl]="form.get('Email')" nbInput fullWidth name="email" id="input-email" placeholder="Nhập thư điện tử" fieldSize="large" autofocus [status]="form.get('Email').dirty ? (form.get('Email').invalid  ? 'danger' : 'success') : ''" [attr.aria-invalid]="form.get('Email').invalid && form.get('Email').touched ? true : null">
+                <ng-container *ngIf="form.get('Email').invalid && form.get('Email').touched">
+                    <p class="caption status-danger" *ngIf="form.get('Email').invalid && (form.get('Email').dirty || form.get('Email').touched)">
+                        Vui lòng nhập đúng định dạng thư điện tử
+                    </p>
+                </ng-container>
+            </div>
+
+            <div class="form-control-group">
+                <label class="label" for="input-phone">Số điện thoại:</label>
+                <input [formControl]="form.get('Phone')" nbInput fullWidth name="phone" id="input-phone" placeholder="Nhập số điện thoại" fieldSize="large" autofocus [status]="form.get('Phone').dirty ? (form.get('Phone').invalid  ? 'danger' : 'success') : ''" [attr.aria-invalid]="form.get('Phone').invalid && form.get('Phone').touched ? true : null">
+                <ng-container *ngIf="form.get('Phone').invalid && form.get('Phone').touched">
+                    <p class="caption status-danger" *ngIf="form.get('Phone').invalid && (form.get('Phone').dirty || form.get('Phone').touched)">
+                        Vui lòng nhập đúng định dạng số điện thoại
+                    </p>
+                </ng-container>
+            </div>
+
+            <!-- <div class="form-control-group">
+                <label class="label" for="input-password">Mật khẩu:</label>
+                <input [formControl]="form.get('Password')" nbInput fullWidth name="password" type="password" id="input-password" placeholder="Nhập mật khẩu" fieldSize="large" [status]="form.get('Password').dirty ? (form.get('Password').invalid  ? 'danger' : 'success') : ''">
+                <ng-container *ngIf="form.get('Password').invalid && form.get('Password').touched ">
+                    <p class="caption status-danger" *ngIf="form.get('Password').invalid && (form.get('Password').dirty || form.get('Password').touched)">
+                        Vui lòng nhập mật khẩu và độ dài ngắn nhất là 6 ký tự
+                    </p>
+                </ng-container>
+            </div>
+
+            <div class="form-control-group">
+                <label class="label" for="input-rePassword">Nhập lại mật khẩu:</label>
+                <input [formControl]="form.get('RePassword')" nbInput fullWidth name="rePassword" type="password" id="input-rePassword" placeholder="Nhập mật khẩu" fieldSize="large" [status]="form.errors && form.errors['notSame']  ? 'danger' : 'success'">
+                <ng-container *ngIf="form.errors && form.errors['notSame']">
+                    <p class="caption status-danger" *ngIf="form.errors && form.errors['notSame']">
+                        Vui lòng nhập lại mật khẩu giống ở trên
+                    </p>
+                </ng-container>
+            </div> -->
+            <br>
+            <button nbButton status="primary" size="large" [disabled]="!form.valid" [class.btn-pulse]="!form.valid">Cập nhật</button>
+        </form>
+    </div>
+</div>

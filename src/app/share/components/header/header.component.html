@@ -1,0 +1,87 @@
+<div class="header-container">
+    <div class="logo-container">
+        <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+            <nb-icon icon="menu-2-outline"></nb-icon>
+        </a>
+        <a class="logo" href="/#/core/camera">PRC391</a>
+    </div>
+    <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+        <nb-option *ngFor="let theme of themes" [value]="theme.value">
+            {{ theme.name }}</nb-option>
+    </nb-select>
+</div>
+
+<div class="header-container">
+    <nb-actions size="small">
+        <nb-action class="control-item">
+            <nb-search type="rotate-layout"></nb-search>
+        </nb-action>
+        <nb-action id="cart-icon" class="control-item" (click)="openWindow(window, 'Thông tin giỏ hàng')" icon="shopping-cart-outline"></nb-action>
+        <nb-action class="user-action" *nbIsGranted="['view', 'user']">
+            <nb-user [nbContextMenu]="userMenu" [onlyPicture]="userPictureOnly" [name]="username" [picture]="picture">
+            </nb-user>
+        </nb-action>
+    </nb-actions>
+</div>
+<ng-template #window let-data>
+    <nb-card style="width: 60vw">
+        <nb-card-body>
+            <div class="container" style="max-height: 60vh; overflow: auto; height: 60vh">
+                <div *ngFor="let product of products" class="row">
+                    <div class="col-12 mb-4">
+                        <mdb-card>
+                            <mdb-card-body>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img [src]="product.Image" [alt]="product.Name" width="300" height="300" />
+                                    </div>
+                                    <div class="col-8">
+                                        <h4>{{product.Name}}</h4>
+                                        <h6>Giá <strong>{{product.Price | number: '.0'}}</strong> $</h6>
+                                        <div>
+                                            <button (click)="useChange('sub', product.Id)" [status]="'primary'" [appearance]="'outline'" [size]="'small'" nbButton>
+                                              <span>
+                                                <nb-icon [icon]="'minus-circle-outline'"> </nb-icon>
+                                              </span>
+                                            </button>
+                                            <input style="width: 6rem; text-align: center;" type="number" (blur)="useChange('update', product.Id, product, $event.target.value)" [value]="product.QuantityChoose" nbInput [fieldSize]="'small'" />
+                                            <button (click)="useChange('extra', product.Id)" [status]="'primary'" [appearance]="'outline'" [size]="'small'" nbButton>
+                                              <span>
+                                                <nb-icon [icon]="'plus-circle-outline'"> </nb-icon>
+                                              </span>
+                                            </button>
+                                            <button class="float-right" (click)="useChange('remove', product.Id)" [status]="'danger'" [appearance]="'outline'" [size]="'small'" nbButton>
+                                              <span>
+                                                <nb-icon [icon]="'trash-2-outline'"> </nb-icon>
+                                              </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                </div>
+                <div *ngIf="products.length === 0" style="height: 100%; display: flex; justify-content: center; align-items: center;">
+                    <img src="../../../../assets/empty-cart.png" width="250" height="250" />
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="row">
+                <div class="col-{{products.length === 0 ? '12' : '10'}} text-center">
+                    <button (click)="buy()" [disabled]="products.length === 0" [status]="'success'" nbButton fullWidth>
+                <span>
+                  <nb-icon [icon]="'plus-circle-outline'"> </nb-icon>
+                  Xác nhận mua hàng
+                </span>
+              </button>
+                </div>
+                <div *ngIf="products.length > 0" class="col-2" style="align-self: center;">
+                    <span>Tổng: </span> <strong style="font-size: 1.5rem;">{{total | number: '.0'}} $</strong>
+                </div>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

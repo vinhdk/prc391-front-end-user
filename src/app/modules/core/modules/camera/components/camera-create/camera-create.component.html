@@ -1,0 +1,83 @@
+<button (click)="openWindow(window, 'Thêm mới')" [status]="'success'" nbButton fullWidth>
+  <span>
+      <nb-icon [icon]="'plus-circle-outline'">
+      </nb-icon>
+      Thêm mới
+  </span>
+</button>
+<ng-template #window let-data>
+    <nb-card style="width: 40vw;">
+        <nb-card-header>Thông tin máy ảnh</nb-card-header>
+        <nb-card-body style="max-height: 50vh; overflow-y: scroll;">
+            <form [formGroup]="form">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <span>Tên máy ảnh <span class="text-danger">*</span></span>
+                        <input class="my-2" type="text" placeholder="Ví dụ: Nikon..." [status]="form.get('Name').dirty || form.get('Name').touched ? (form.get('Name').invalid ? 'danger' : 'success') : 'default'" nbInput fullWidth formControlName="Name">
+                        <span *ngIf="(form.get('Name').dirty || form.get('Name').touched) && form.get('Name').invalid" class="text-danger">Sai định dạng tên máy ảnh</span>
+                    </div>
+                    <div class="col-6 my-2">
+                        <span>Giá <span class="text-danger">*</span></span>
+                        <input class="my-2" type="text" mask="separator.0" thousandSeparator="," placeholder="Ví dụ: 10,000,000..." [status]="form.get('Price').dirty || form.get('Price').touched ? (form.get('Price').invalid ? 'danger' : 'success') : 'default'" nbInput fullWidth
+                            formControlName="Price">
+                        <span *ngIf="(form.get('Price').dirty || form.get('Price').touched) && form.get('Price').invalid" class="text-danger">Sai định dạng giá máy ảnh</span>
+                    </div>
+                    <div class="col-6 my-2">
+                        <span>Số lượng <span class="text-danger">*</span></span>
+                        <input class="my-2" type="text" mask="separator" thousandSeparator="," placeholder="Ví dụ: 500..." [status]="form.get('Quantity').dirty || form.get('Quantity').touched ? (form.get('Quantity').invalid ? 'danger' : 'success') : 'default'" nbInput fullWidth
+                            formControlName="Quantity">
+                        <span *ngIf="(form.get('Quantity').dirty || form.get('Quantity').touched) && form.get('Quantity').invalid" class="text-danger">Sai định dạng số lượng máy ảnh</span>
+                    </div>
+                    <div class="col-12 my-2">
+                        <span>Độ phân giải <span class="text-danger">*</span></span>
+                        <input class="my-2" type="text" mask="separator" thousandSeparator="," placeholder="Ví dụ: 20.5..." [status]="form.get('Megapixel').dirty || form.get('Megapixel').touched ? (form.get('Megapixel').invalid ? 'danger' : 'success') : 'default'" nbInput fullWidth
+                            formControlName="Megapixel">
+                        <span *ngIf="(form.get('Megapixel').dirty || form.get('Megapixel').touched) && form.get('Megapixel').invalid" class="text-danger">Sai định dạng độ phân giải máy ảnh</span>
+                    </div>
+                    <div class="col-6 my-2">
+                        <span>Thương hiệu <span class="text-danger">*</span></span>
+                        <nb-select placeholder="Thương hiệu" [status]="form.get('BrandId').dirty || form.get('BrandId').touched ? (form.get('BrandId').invalid ? 'danger' : 'success') : 'default'" fullWidth formControlName="BrandId">
+                            <nb-option *ngFor="let option of brands" [value]="option.Id">
+                                {{ option.Name }}
+                            </nb-option>
+                        </nb-select>
+                        <span *ngIf="(form.get('BrandId').dirty || form.get('BrandId').touched) && form.get('BrandId').invalid" class="text-danger">Vui lòng chọn thương hiệu cho máy ảnh</span>
+                    </div>
+                    <div class="col-6 my-2">
+                        <span>Loại máy <span class="text-danger">*</span></span>
+                        <nb-select placeholder="Loại máy" [status]="form.get('CategoryId').dirty || form.get('CategoryId').touched ? (form.get('CategoryId').invalid ? 'danger' : 'success') : 'default'" fullWidth formControlName="CategoryId">
+                            <nb-option *ngFor="let option of categorys" [value]="option.Id">
+                                {{ option.Name }}
+                            </nb-option>
+                        </nb-select>
+                        <span *ngIf="(form.get('CategoryId').dirty || form.get('CategoryId').touched) && form.get('CategoryId').invalid" class="text-danger">Vui lòng chọn loại máy ảnh</span>
+                    </div>
+                    <div class="col-12">
+                        <span>Chọn ảnh <span class="text-danger">*</span></span>
+                    </div>
+                    <div class="col-6 offset-3 my-2 image-service text-center">
+
+                        <img [src]="form.get('Image').value ? form.get('Image').value : 'assets/camera-select.png'" class="image" alt="Service Logo">
+                        <input type="file" (change)="selectImage($event)" accept=".jpg, .jpeg, .png" style="height: 0; opacity: 0;" #file/>
+                        <button [status]="'primary'" (click)="file.click()" nbButton class="button-image">
+                        <span><nb-icon [icon]="'image-outline'"></nb-icon></span>
+                      </button>
+                    </div>
+                    <div class="col-12 my-2">
+                        <span>Mô tả</span>
+                        <textarea class="my-2" rows="5" type="text" nbInput fullWidth formControlName="Description"></textarea>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer>
+            <button (click)="useCreate()" [disabled]="form.invalid" [status]="'primary'" nbButton fullWidth>
+            <span>
+                <nb-icon [icon]="'plus-circle-outline'">
+                </nb-icon>
+                Xác nhận
+            </span>
+        </button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-2">
+        <ngx-datatable id="specialize-table" class='table table-hover material' (select)="useSelect($event)" [columnMode]="'force'" [reorderable]="true" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [rows]="orders" [scrollbarH]="true" [selectionType]="'single'"
+            [limit]="10" [messages]="{emptyMessage: 'Chưa có đơn hàng',totalMessage: 'tổng cộng',selectedMessage: 'đã chọn'}">
+            <ngx-datatable-column [name]="'Đơn hàng'" [width]="100" [prop]="'CreatedAt'">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value | date: 'hh:MM dd/MM/yyyy'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+    <div class="col-10">
+        <ngx-datatable id="specialize-table" class='table table-hover material' [columnMode]="'force'" [reorderable]="true" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [rows]="details" [scrollbarH]="true" [selectionType]="'single'" [limit]="10"
+            [messages]="{emptyMessage: '',totalMessage: 'tổng cộng',selectedMessage: 'đã chọn'}">
+            <ngx-datatable-column [name]="'Tên'" [width]="100" [prop]="'Camera'">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value.Name}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [name]="'Giá'" [width]="100" [prop]="'Camera'">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>$ {{value.Price | number: '.0'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [name]="'Số lượng'" [width]="100" [prop]="'Quantity'">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value | number: '.0'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [name]="'Số lượng'" [width]="100" [prop]="'Camera'">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <img [src]="value.Image" width="100" height="100" />
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [name]="'Tổng'" [width]="100" [prop]="'Camera'">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span>$ {{row.Quantity * row.Camera.Price | number: '.0'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+
+</div>
