@@ -42,4 +42,7 @@ export class AccountHistoryComponent implements OnInit {
     });
   }
 
+  useChangePrice = (price: number) => {
+    return parseInt((price / 1000000).toFixed(0));
+  }
 }

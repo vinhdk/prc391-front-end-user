@@ -1,4 +1,4 @@
-import swal from 'sweetalert2';
+import swal from "sweetalert2";
 import { Component, OnDestroy, OnInit, TemplateRef } from "@angular/core";
 import {
   NbMediaBreakpointsService,
@@ -20,7 +20,7 @@ import {
   LayoutService,
   OrderService,
 } from "src/app/services";
-import { OrderDetailCM, OrderCM } from 'src/app/models';
+import { OrderDetailCM, OrderCM } from "src/app/models";
 
 @Component({
   selector: "app-header",
@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     protected readonly searchService: NbSearchService,
     protected readonly cartService: CartService,
     protected readonly windownService: NbWindowService,
-    protected readonly orderService: OrderService,
+    protected readonly orderService: OrderService
   ) {
     authService.touchToken().then((res) => {
       this.userMenu = [
@@ -115,10 +115,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.onItemClick().subscribe((selected) => {
       if (selected.item.data === "logout") {
         this.logout();
-      } else if(selected.item.data === "login") {
-        this.router.navigate(['auth/login']);
-      }else {
-        this.router.navigate(['core/account']);
+      } else if (selected.item.data === "login") {
+        this.router.navigate(["auth/login"]);
+      } else {
+        this.router.navigate(["core/account"]);
       }
     });
     this.searchService.onSearchSubmit().subscribe((data: any) => {
@@ -129,7 +129,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.picture = "../../assets/camera.png";
   }
-
 
   ngOnDestroy() {
     this.destroy$.next();
@@ -180,7 +179,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.cartService.remove(id as string);
         break;
       case "update":
-        this.cartService.updateQuantity({...data as Product, QuantityChoose: quantity});
+        this.cartService.updateQuantity({
+          ...(data as Product),
+          QuantityChoose: quantity,
+        });
         break;
       case "extra":
         this.cartService.extraQuantity(id as string);
@@ -192,7 +194,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         break;
     }
     this.updateCard();
-  }
+  };
 
   openWindow(window: TemplateRef<any>, tittle: string) {
     this.updateCard();
@@ -203,18 +205,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   buy = () => {
-    this.authService.touchToken().then(async (account) => {
-      const details = this.products.map((e) => new OrderDetailCM({CameraId: e.Id, Quantity: e.QuantityChoose}));
-      await this.orderService.insert(new OrderCM({OrderDetails: details}).getData())
-      .then((res) => {
-        swal.fire('Thông báo', 'Mua hàng thành công', 'success');
-        localStorage.removeItem('your-card');
-        this.windowRef.close();
-      }).catch((err) => {
-        swal.fire('Thông báo', 'Mua hàng thất bại', 'error');
+    this.authService
+      .touchToken()
+      .then(async (account) => {
+        const details = this.products.map(
+          (e) =>
+            new OrderDetailCM({ CameraId: e.Id, Quantity: e.QuantityChoose })
+        );
+        await this.orderService
+          .insert(new OrderCM({ OrderDetails: details }).getData())
+          .then((res) => {
+            swal.fire("Thông báo", "Mua hàng thành công", "success");
+            localStorage.removeItem("your-card");
+            this.windowRef.close();
+          })
+          .catch((err) => {
+            swal.fire("Thông báo", "Mua hàng thất bại", "error");
+          });
       })
-    }).catch((err) => {
-      this.router.navigate(['auth/login']);
-    });
-  }
+      .catch((err) => {
+        this.router.navigate(["auth/login"]);
+      });
+  };
+
+  useChangePrice = (price: number) => {
+    return parseInt((price / 1000000).toFixed(0));
+  };
 }

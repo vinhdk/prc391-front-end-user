@@ -9,7 +9,7 @@
                     <h5 style="height: 100px;">{{row.Name}}</h5>
                 </mdb-card-title>
                 <mdb-card-text class="text-center">
-                    <span style="font-size: 1rem;">{{row.Price | number: '.0'}} đô</span>
+                    <span style="font-size: 1rem;">{{useChangePrice(row.Price) | number: '.0'}} triệu</span>
                 </mdb-card-text>
                 <div class="card-footer text-muted text-center mt-4">
                     <button mdbBtn color="primary" outline="true" rounded="true" mdbWavesEffect (click)="addToCard(row)">Thêm vào giỏ hàng</button>

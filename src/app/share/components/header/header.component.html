@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="col-8">
                                         <h4>{{product.Name}}</h4>
-                                        <h6>Giá <strong>{{product.Price | number: '.0'}}</strong> $</h6>
+                                        <h6>Giá <strong>{{useChangePrice(product.Price) | number: '.0'}}</strong> triệu</h6>
                                         <div>
                                             <button (click)="useChange('sub', product.Id)" [status]="'primary'" [appearance]="'outline'" [size]="'small'" nbButton>
                                               <span>
@@ -79,7 +79,7 @@
               </button>
                 </div>
                 <div *ngIf="products.length > 0" class="col-2" style="align-self: center;">
-                    <span>Tổng: </span> <strong style="font-size: 1.5rem;">{{total | number: '.0'}} $</strong>
+                    <span>Tổng: </span> <strong style="font-size: 1.5rem;">{{useChangePrice(total) | number: '.0'}} triệu</strong>
                 </div>
             </div>
         </nb-card-footer>

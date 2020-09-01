@@ -22,7 +22,7 @@ export class CameraListComponent implements OnInit {
   filterRows: CameraVM[] = [];
   pagingRows: CameraVM[] = [];
   row: CameraVM;
-  filterPrices: number[] = [0, 10000];
+  filterPrices: number[] = [0, 300000000];
   filterMegapixels: number[] = [0, 100];
   index = 0;
   constructor(
@@ -145,4 +145,8 @@ export class CameraListComponent implements OnInit {
     this.cartService.addToCard({ ...data, QuantityChoose: 1 });
     document.getElementById("cart-icon").click();
   };
+
+  useChangePrice = (price: number) => {
+    return parseInt((price / 1000000).toFixed(0));
+  }
 }

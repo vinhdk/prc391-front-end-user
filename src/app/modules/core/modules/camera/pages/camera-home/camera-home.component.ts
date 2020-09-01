@@ -12,13 +12,13 @@ export class CameraHomeComponent implements OnInit {
   ownLink = 'core/brand';
   optionPrice: Options = {
     floor: 0,
-    ceil: 10000,
-    step: 100,
+    ceil: 300000000,
+    step: 5000000,
     showTicksValues: true,
-    tickStep: 2000,
+    tickStep: 60000000,
     tickValueStep: 5,
     translate: (value: number, label: LabelType) => {
-        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' đô';
+        return (value / 1000000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' triệu';
     }
   };
 
