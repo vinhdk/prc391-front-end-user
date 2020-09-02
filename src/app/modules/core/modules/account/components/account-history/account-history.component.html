@@ -27,7 +27,7 @@
                     <span>{{value | number: '.0'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column [name]="'Số lượng'" [width]="100" [prop]="'Camera'">
+            <ngx-datatable-column [name]="'Hình ảnh'" [width]="100" [prop]="'Camera'">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <img [src]="value.Image" width="100" height="100" />
                 </ng-template>
