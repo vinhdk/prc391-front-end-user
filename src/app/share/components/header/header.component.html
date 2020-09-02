@@ -13,9 +13,6 @@
 
 <div class="header-container">
     <nb-actions size="small">
-        <nb-action class="control-item">
-            <nb-search type="rotate-layout"></nb-search>
-        </nb-action>
         <nb-action id="cart-icon" class="control-item" (click)="openWindow(window, 'Thông tin giỏ hàng')" icon="shopping-cart-outline"></nb-action>
         <nb-action class="user-action" *nbIsGranted="['view', 'user']">
             <nb-user [nbContextMenu]="userMenu" [onlyPicture]="userPictureOnly" [name]="username" [picture]="picture">
