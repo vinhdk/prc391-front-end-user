@@ -9,31 +9,38 @@
 
     <nb-card-body>
         <div class="row">
-            <div class="col-3 mb-2">
-                <div class="row">
-                    <div class="col-6">
-                        <span>Loại máy</span><br><br>
-                        <div *ngFor="let category of list.categorys">
-                            <nb-checkbox (checkedChange)="list.useFilter(category.Id, 'category')">{{category.Name}}</nb-checkbox>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <span>Thương hiệu</span><br><br>
-                        <div *ngFor="let brand of list.brands">
-                            <nb-checkbox (checkedChange)="list.useFilter(brand.Id, 'brand')">{{brand.Name}}</nb-checkbox>
-                        </div>
-                    </div>
-                    <div class="col-12 my-5">
-                        <span>Giá</span><br>
-                        <ng5-slider [value]="list.filterPrices[0]" [highValue]="300000000" [options]="optionPrice" (userChange)="list.useFilter([$event.value, $event.highValue], 'price')"></ng5-slider>
-                    </div>
-                    <div class="col-12">
-                        <span>Độ phân giải</span><br>
-                        <ng5-slider [value]="list.filterMegapixels[0]" [highValue]="100" [options]="optionMegapixel" (userChange)="list.useFilter([$event.value, $event.highValue], 'megapixel')"></ng5-slider>
-                    </div>
-                </div>
+            <div class="col-12 col-lg-4 mb-2">
+                <nb-accordion multi>
+                    <nb-accordion-item [expanded]="true">
+                        <nb-accordion-item-header>Tìm kiếm</nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <span>Loại máy</span><br><br>
+                                    <div *ngFor="let category of list.categorys">
+                                        <nb-checkbox (checkedChange)="list.useFilter(category.Id, 'category')">{{category.Name}}</nb-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span>Thương hiệu</span><br><br>
+                                    <div *ngFor="let brand of list.brands">
+                                        <nb-checkbox (checkedChange)="list.useFilter(brand.Id, 'brand')">{{brand.Name}}</nb-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-12 my-5">
+                                    <span>Giá</span><br>
+                                    <ng5-slider [value]="list.filterPrices[0]" [highValue]="300000000" [options]="optionPrice" (userChange)="list.useFilter([$event.value, $event.highValue], 'price')"></ng5-slider>
+                                </div>
+                                <div class="col-12">
+                                    <span>Độ phân giải</span><br>
+                                    <ng5-slider [value]="list.filterMegapixels[0]" [highValue]="100" [options]="optionMegapixel" (userChange)="list.useFilter([$event.value, $event.highValue], 'megapixel')"></ng5-slider>
+                                </div>
+                            </div>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
             </div>
-            <div class="col-9">
+            <div class="col-12 col-lg-8">
                 <app-camera-list #list></app-camera-list>
             </div>
         </div>

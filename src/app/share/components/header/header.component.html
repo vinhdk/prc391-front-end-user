@@ -13,7 +13,7 @@
 
 <div class="header-container">
     <nb-actions size="small">
-        <nb-action id="cart-icon" class="control-item" (click)="openWindow(window, 'Thông tin giỏ hàng')" icon="shopping-cart-outline"></nb-action>
+        <nb-action id="cart-icon" class="control-item" (click)="openWindow(window, 'Thông tin giỏ hàng')" icon="shopping-cart-outline" [badgeText]="products.length + ''" badgePosition="top right" badgeStatus="danger"></nb-action>
         <nb-action class="user-action" *nbIsGranted="['view', 'user']">
             <nb-user [nbContextMenu]="userMenu" [onlyPicture]="userPictureOnly" [name]="username" [picture]="picture">
             </nb-user>
@@ -21,62 +21,59 @@
     </nb-actions>
 </div>
 <ng-template #window let-data>
-    <nb-card style="width: 60vw">
-        <nb-card-body>
-            <div class="container" style="max-height: 60vh; overflow: auto; height: 60vh">
-                <div *ngFor="let product of products" class="row">
-                    <div class="col-12 mb-4">
-                        <mdb-card>
-                            <mdb-card-body>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img [src]="product.Image" [alt]="product.Name" width="300" height="300" />
-                                    </div>
-                                    <div class="col-8">
-                                        <h4>{{product.Name}}</h4>
-                                        <h6>Giá <strong>{{useChangePrice(product.Price) | number: '.0'}}</strong> triệu</h6>
-                                        <div>
-                                            <button (click)="useChange('sub', product.Id)" [status]="'primary'" [appearance]="'outline'" [size]="'small'" nbButton>
-                                              <span>
-                                                <nb-icon [icon]="'minus-circle-outline'"> </nb-icon>
-                                              </span>
-                                            </button>
-                                            <input style="width: 6rem; text-align: center;" type="number" (blur)="useChange('update', product.Id, product, $event.target.value)" [value]="product.QuantityChoose" nbInput [fieldSize]="'small'" />
-                                            <button (click)="useChange('extra', product.Id)" [status]="'primary'" [appearance]="'outline'" [size]="'small'" nbButton>
-                                              <span>
-                                                <nb-icon [icon]="'plus-circle-outline'"> </nb-icon>
-                                              </span>
-                                            </button>
-                                            <button class="float-right" (click)="useChange('remove', product.Id)" [status]="'danger'" [appearance]="'outline'" [size]="'small'" nbButton>
-                                              <span>
-                                                <nb-icon [icon]="'trash-2-outline'"> </nb-icon>
-                                              </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+    <nb-card style="width: 100%">
+        <nb-card-body style="max-height: 60vh; overflow: auto; height: 60vh">
+            <div class="container">
+                <div *ngFor="let product of products" class="row box my-3 p-3">
+                    <div class="col-12 col-lg-4" style="align-self: center; text-align: center;">
+                        <img [src]="product.Image" [alt]="product.Name" style="width: 100%; height: 100%" />
+                    </div>
+                    <div class="col-12 col-lg-8 p-lg-5 text-lg-left text-center">
+                        <div>
+                            <span><strong>{{product.Name}}</strong></span>
+                        </div>
+                        <div class="my-3">
+                            <button (click)="useChange('sub', product.Id)" [status]="'primary'" [appearance]="'outline'" [size]="'small'" nbButton>
+                <span>
+                  <nb-icon [icon]="'minus-circle-outline'"> </nb-icon>
+                </span>
+              </button>
+                            <input style="width: 4rem; text-align: center;" type="number" (blur)="useChange('update', product.Id, product, $event.target.value)" [value]="product.QuantityChoose" nbInput [fieldSize]="'small'" />
+                            <button (click)="useChange('extra', product.Id)" [status]="'primary'" [appearance]="'outline'" [size]="'small'" nbButton>
+                <span>
+                  <nb-icon [icon]="'plus-circle-outline'"> </nb-icon>
+                </span>
+              </button>
 
-                            </mdb-card-body>
-                        </mdb-card>
+                        </div>
+
+                    </div>
+                    <div class="col-12 mt-3">
+                        <button class="float-left" fullWidth (click)="useChange('remove', product.Id)" [status]="'danger'" [appearance]="'outline'" nbButton>
+                    <span>
+                      <nb-icon [icon]="'trash-2-outline'"> </nb-icon>
+                    </span>
+                  </button>
                     </div>
                 </div>
-                <div *ngIf="products.length === 0" style="height: 100%; display: flex; justify-content: center; align-items: center;">
-                    <img src="../../../../assets/empty-cart.png" width="250" height="250" />
+                <div class="row">
+                    <div class="col-12">
+                        <div *ngIf="products.length === 0" style="height: 100%; display: flex; justify-content: center; align-items: center;">
+                            <img src="../../../../assets/empty-cart.png" width="250" height="250" />
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </nb-card-body>
         <nb-card-footer>
             <div class="row">
-                <div class="col-{{products.length === 0 ? '12' : '10'}} text-center">
+                <div class="col-12 text-center px-3">
                     <button (click)="buy()" [disabled]="products.length === 0" [status]="'success'" nbButton fullWidth>
                 <span>
-                  <nb-icon [icon]="'plus-circle-outline'"> </nb-icon>
-                  Xác nhận mua hàng
+                  Xác nhận <span *ngIf="products.length > 0" ><strong>Tổng: {{useChangePrice(total) | number: '.0'}} triệu</strong></span>
                 </span>
               </button>
-                </div>
-                <div *ngIf="products.length > 0" class="col-2" style="align-self: center;">
-                    <span>Tổng: </span> <strong style="font-size: 1.5rem;">{{useChangePrice(total) | number: '.0'}} triệu</strong>
                 </div>
             </div>
         </nb-card-footer>

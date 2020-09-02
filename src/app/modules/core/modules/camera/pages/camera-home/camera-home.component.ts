@@ -14,9 +14,6 @@ export class CameraHomeComponent implements OnInit {
     floor: 0,
     ceil: 300000000,
     step: 5000000,
-    showTicksValues: true,
-    tickStep: 60000000,
-    tickValueStep: 5,
     translate: (value: number, label: LabelType) => {
         return (value / 1000000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' triệu';
     }
@@ -26,9 +23,6 @@ export class CameraHomeComponent implements OnInit {
     floor: 0,
     ceil: 100,
     step: 0.5,
-    showTicksValues: true,
-    tickStep: 10,
-    tickValueStep: 10,
     translate: (value: number, label: LabelType) => {
       return value + 'M';
     }

@@ -40,6 +40,14 @@
     cursor: pointer;
 }
 
+#cdk-overlay-0>nb-windows-container>nb-window>nb-card>nb-card-header>div.buttons>button:nth-child(1) {
+    display: "none";
+}
+
+#cdk-overlay-0>nb-windows-container>nb-window>nb-card>nb-card-header>div.buttons>button:nth-child(2) {
+    display: "none";
+}
+
 .ngx-datatable.material.single-selection .datatable-body-row.active,
 .ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group,
 .ngx-datatable.material.multi-selection .datatable-body-row.active,

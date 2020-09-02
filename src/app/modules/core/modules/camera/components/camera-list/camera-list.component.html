@@ -1,6 +1,27 @@
-<div class="row" style="max-height: 63vh; overflow: auto;">
-    <div class="col-4 mb-5" *ngFor="let row of pagingRows">
-        <mdb-card>
+<div class="row px-3" style="max-height: 70vh; overflow: auto;">
+    <div class="col-12 my-3 box" *ngFor="let row of pagingRows">
+        <div class="row">
+            <div class="col-12 col-md-4" style="align-self: center; text-align: center;">
+                <img [src]="row.Image" [alt]="row.Name" style="width: 100%; height: 100%" />
+            </div>
+            <div class="col-12 col-md-8 p-md-5 text-md-left text-center">
+                <div>
+                    <span><strong>{{row.Name}} {{row.Megapixel}} M</strong></span>
+                </div>
+                <div class="mt-3">
+                    <strong [class.text-danger]="row.Quantity === 0" [class.text-primary]="row.Quantity > 0">{{row.Quantity === 0 ? 'Hết hàng' : 'Còn hàng'}} </strong>
+                </div>
+                <div class="my-3">
+                    <button [disabled]="row.Quantity === 0" nbButton color="primary" outline="true" size="small" (click)="addToCard(row)">
+                    <span>{{useChangePrice(row.Price) | number: '.0'}} triệu <nb-icon icon="plus-square-outline">
+                    </nb-icon>
+                </span>
+                  </button>
+                </div>
+
+            </div>
+        </div>
+        <!-- <mdb-card>
             <div class="text-center">
                 <img [src]="row.Image" [alt]="row.Name" width="300" height="300" />
             </div>
@@ -15,8 +36,8 @@
                     <button mdbBtn color="primary" outline="true" rounded="true" mdbWavesEffect (click)="addToCard(row)">Thêm vào giỏ hàng</button>
                 </div>
             </mdb-card-body>
-        </mdb-card>
+        </mdb-card> -->
     </div>
 </div>
 <p-paginator *ngIf="filterRows.length === 0" id="tmp"></p-paginator>
-<p-paginator *ngIf="filterRows.length > 0" [rows]="30" [totalRecords]="filterRows.length" (onPageChange)="useChangePage($event)"></p-paginator>
+<p-paginator *ngIf="filterRows.length > 0" [rows]="30" [pageLinkSize]="3" [totalRecords]="filterRows.length" (onPageChange)="useChangePage($event)"></p-paginator>

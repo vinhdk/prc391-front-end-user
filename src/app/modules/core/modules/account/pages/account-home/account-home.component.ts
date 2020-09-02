@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { BreadCrumbItem } from 'src/app/share/models';
 
@@ -7,11 +8,16 @@ import { BreadCrumbItem } from 'src/app/share/models';
   styleUrls: ['./account-home.component.scss']
 })
 export class AccountHomeComponent implements OnInit {
-  value = 'profile';
+  values = [{label: 'Cập nhật hồ sơ', value: 'profile'}, {label: 'Cập nhật mật khẩu', value: 'password'}, {label: 'Lịch sử mua hàng', value: 'history'}];
+  form: FormGroup;
   menu: BreadCrumbItem[];
   home: BreadCrumbItem;
   ownLink = 'core/account';
-  constructor() { }
+  constructor(protected readonly fb: FormBuilder) {
+      this.form = this.fb.group({
+        Name: ['profile']
+      });
+   }
 
   ngOnInit() {
     this.setting();

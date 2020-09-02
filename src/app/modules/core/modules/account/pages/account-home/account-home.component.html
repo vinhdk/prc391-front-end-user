@@ -1,12 +1,12 @@
 <nb-card style="height: 75vh;">
     <nb-card-header>
         <div class="row">
-            <div class="col-10">
+            <div class="col-8">
                 <app-bread-crumb [home]="home" [menu]="menu"></app-bread-crumb>
             </div>
-            <div class="col-2">
-                <nb-select placeholder="Mục" [(ngModel)]="value" fullWidth>
-                    <nb-option *ngFor="let option of [{label: 'Cập nhật hồ sơ', value: 'profile'}, {label: 'Cập nhật mật khẩu', value: 'password'}, {label: 'Lịch sử mua hàng', value: 'history'}]" [value]="option.value">
+            <div class="col-4">
+                <nb-select placeholder="Mục" [formControl]="form.get('Name')" fullWidth>
+                    <nb-option *ngFor="let option of values" [value]="option.value">
                         {{ option.label }}
                     </nb-option>
                 </nb-select>
@@ -15,8 +15,8 @@
     </nb-card-header>
 
     <nb-card-body>
-        <app-account-history *ngIf="value === 'history'"></app-account-history>
-        <app-account-profile *ngIf="value === 'profile'"></app-account-profile>
-        <app-account-password *ngIf="value === 'password'"></app-account-password>
+        <app-account-history *ngIf="form.get('Name').value === 'history'"></app-account-history>
+        <app-account-profile *ngIf="form.get('Name').value === 'profile'"></app-account-profile>
+        <app-account-password *ngIf="form.get('Name').value === 'password'"></app-account-password>
     </nb-card-body>
 </nb-card>

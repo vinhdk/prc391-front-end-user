@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col-2">
-        <ngx-datatable id="specialize-table" class='table table-hover material' (select)="useSelect($event)" [columnMode]="'force'" [reorderable]="true" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [rows]="orders" [scrollbarH]="true" [selectionType]="'single'"
+    <div class="col-12 col-md-3">
+        <ngx-datatable id="specialize-table" class='table table-hover material' (select)="useSelect($event)" [columnMode]="'force'" [reorderable]="true" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'" [rows]="orders" [scrollbarH]="true" [selectionType]="'single'"
             [limit]="10" [messages]="{emptyMessage: 'Chưa có đơn hàng',totalMessage: 'tổng cộng',selectedMessage: 'đã chọn'}">
             <ngx-datatable-column [name]="'Đơn hàng'" [width]="100" [prop]="'CreatedAt'">
                 <ng-template let-value="value" ngx-datatable-cell-template>
@@ -9,8 +9,8 @@
             </ngx-datatable-column>
         </ngx-datatable>
     </div>
-    <div class="col-10">
-        <ngx-datatable id="specialize-table" class='table table-hover material' [columnMode]="'force'" [reorderable]="true" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [rows]="details" [scrollbarH]="true" [selectionType]="'single'" [limit]="10"
+    <div class="col-12 col-md-9">
+        <ngx-datatable id="specialize-table" class='table table-hover material' [columnMode]="'force'" [reorderable]="true" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'" [rows]="details" [scrollbarH]="true" [selectionType]="'single'" [limit]="10"
             [messages]="{emptyMessage: '',totalMessage: 'tổng cộng',selectedMessage: 'đã chọn'}">
             <ngx-datatable-column [name]="'Tên'" [width]="100" [prop]="'Camera'">
                 <ng-template let-value="value" ngx-datatable-cell-template>

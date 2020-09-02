@@ -55,6 +55,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userMenu = [
     {
+      title: "Giỏ hàng",
+      data: "cart",
+      icon: "shopping-cart-outline",
+    },
+    {
       title: "Đăng nhập",
       data: "login",
       icon: "log-in-outline",
@@ -84,12 +89,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
           icon: "person-outline",
         },
         {
+          title: "Giỏ hàng",
+          data: "cart",
+          icon: "shopping-cart-outline",
+        },
+        {
           title: "Thoát",
           data: "logout",
           icon: "log-out-outline",
         },
       ];
     });
+    this.cartService.cartSubject.subscribe((data) => {
+        this.updateCart();
+    });
+    this.updateCart();
   }
 
   ngOnInit() {
@@ -117,7 +131,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.logout();
       } else if (selected.item.data === "login") {
         this.router.navigate(["auth/login"]);
-      } else {
+      } else if(selected.item.data === "cart") {
+        document.getElementById("cart-icon").click();
+      }
+      else {
         this.router.navigate(["core/account"]);
       }
     });
@@ -156,7 +173,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(["auth"]);
   }
 
-  updateCard = () => {
+  updateCart = () => {
     this.products = this.cartService.getALl();
     this.total = 0;
     for (let i = 0; i < this.products.length; i++) {
@@ -193,11 +210,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    this.updateCard();
+    this.updateCart();
   };
 
   openWindow(window: TemplateRef<any>, tittle: string) {
-    this.updateCard();
+    this.updateCart();
     this.windowRef = this.windownService.open(window, {
       title: tittle,
       windowClass: "m-auto",
@@ -217,6 +234,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           .then((res) => {
             swal.fire("Thông báo", "Mua hàng thành công", "success");
             localStorage.removeItem("your-card");
+            this.updateCart();
             this.windowRef.close();
           })
           .catch((err) => {
